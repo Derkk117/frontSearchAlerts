@@ -59,47 +59,29 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                           shape: CircleBorder(),
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[100],
-                            child: ClipRRect(
-                              child: Image.asset(
-                                'Assets/Images/Stick_logo.png',
-                              ),
-                              borderRadius: BorderRadius.circular(100.0),
+                            child: FlutterLogo(
+                              size: 50.0,
                             ),
                             /*child: Image.asset("assets/Images/background.png"),*/
-                            radius: 70.0,
+                            radius: 50.0,
                           )),
                     ),
                     DelayedAnimation(
                       child: Text(
                         "Welcome to",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35.0,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 1.0,
-                              color: createMaterialColor(Color(0xFF4079E0)),
-                              offset: Offset(2.0, 2.0),
-                            ),
-                          ],
-                          color: color,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35.0,
+                            color: color),
                       ),
                       delay: delayedAmount + 1000,
                     ),
                     DelayedAnimation(
                       child: Text(
-                        "StickBox",
+                        "Search Alerts",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 35.0,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 1.0,
-                                color: createMaterialColor(Color(0xFF4079E0)),
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
                             color: color),
                       ),
                       delay: delayedAmount + 2000,
@@ -109,37 +91,15 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                     ),
                     DelayedAnimation(
                       child: Text(
-                        "All your stickers in a safe place",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: color,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 1.0,
-                              color: createMaterialColor(Color(0xFF4079E0)),
-                              offset: Offset(2.0, 2.0),
-                            ),
-                          ],
-                          fontWeight: FontWeight.bold,
-                        ),
+                        "Everything you are looking for",
+                        style: TextStyle(fontSize: 20.0, color: color),
                       ),
                       delay: delayedAmount + 3000,
                     ),
                     DelayedAnimation(
                       child: Text(
-                        "no matters if you change your device.",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: color,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 1.0,
-                              color: createMaterialColor(Color(0xFF4079E0)),
-                              offset: Offset(2.0, 2.0),
-                            ),
-                          ],
-                          fontWeight: FontWeight.bold,
-                        ),
+                        "in one place",
+                        style: TextStyle(fontSize: 20.0, color: color),
                       ),
                       delay: delayedAmount + 3000,
                     ),
@@ -159,6 +119,16 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
                     ),
                     SizedBox(
                       height: 50.0,
+                    ),
+                    DelayedAnimation(
+                      child: GestureDetector(
+                        onTapDown: _goToLogIn,
+                        onTapUp: _clear,
+                        child: Transform.scale(
+                          scale: _scale,
+                        ),
+                      ),
+                      delay: delayedAmount + 5000,
                     ),
                   ],
                 ),

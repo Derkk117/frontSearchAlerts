@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:Search_Alerts/Models/User.dart';
 import 'package:Search_Alerts/Services/Auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Search_Alerts/MyColor.dart';
@@ -204,15 +208,25 @@ class _LogInState extends State<LogIn> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(50.0)),
                         onPressed: () async {
-                          // if (_formKey.currentState.validate()) {
-                          //   dynamic result = await _auth
-                          //       .loginWithEmailAndPassword(email, password);
-
-                          //   if (result == null) {
-                          //     setState(() => error =
-                          //         "Credentials are wrong. Please try again.");
-                          //   } else {}
-                          // }
+                          if (_formKey.currentState.validate()) {
+                            dynamic result = await _auth.logIn(email, password);
+                            result = jsonDecode(result.body);
+                            if (result['access_token'] == null) {
+                              setState(() => error =
+                                  "Credentials are wrong. Please try again.");
+                            } else {
+                              dynamic result2 = await _auth
+                                  .getLoggedUser(result['access_token']);
+                              result2 = jsonDecode(result2.body);
+                              UserSA userSA = new UserSA(
+                                  email: result2['email'],
+                                  image: result2['image'],
+                                  name: result2['name'],
+                                  sku: result2['sku'].toString(),
+                                  token: result['access_token']);
+                              inspect(userSA);
+                            }
+                          }
                         },
                         child: Padding(
                           padding: EdgeInsets.all(8),
