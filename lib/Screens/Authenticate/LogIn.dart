@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
-
-import 'package:Search_Alerts/Models/User.dart';
-import 'package:Search_Alerts/Services/Auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Search_Alerts/MyColor.dart';
+import 'package:Search_Alerts/Services/Auth.dart';
 import 'package:Search_Alerts/delayed_animation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
   final Function toggleView;
@@ -121,7 +119,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Center(
                     child: Text(
-                      error,
+                      this.error,
                       style: TextStyle(color: Colors.red, fontSize: 14),
                     ),
                   ),
@@ -208,23 +206,16 @@ class _LogInState extends State<LogIn> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(50.0)),
                         onPressed: () async {
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
                           if (_formKey.currentState.validate()) {
                             dynamic result = await _auth.logIn(email, password);
                             result = jsonDecode(result.body);
-                            if (result['access_token'] == null) {
-                              setState(() => error =
-                                  "Credentials are wrong. Please try again.");
+                            if (result == '"Credentials are wrong."') {
+                              setState(() => error = "Credentials are wrong.");
                             } else {
-                              dynamic result2 = await _auth
-                                  .getLoggedUser(result['access_token']);
-                              result2 = jsonDecode(result2.body);
-                              UserSA userSA = new UserSA(
-                                  email: result2['email'],
-                                  image: result2['image'],
-                                  name: result2['name'],
-                                  sku: result2['sku'].toString(),
-                                  token: result['access_token']);
-                              inspect(userSA);
+                              sharedPreferences.setString(
+                                  "token", result.toString());
                             }
                           }
                         },

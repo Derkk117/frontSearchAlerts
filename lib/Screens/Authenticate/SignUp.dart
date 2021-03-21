@@ -1,7 +1,7 @@
 import 'package:Search_Alerts/MyColor.dart';
 import 'package:flutter/material.dart';
 import 'package:Search_Alerts/delayed_animation.dart';
-import 'package:Search_Alerts/Services/Auth.dart';
+// import 'package:Search_Alerts/Services/Auth.dart';
 import 'package:flutter/services.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,7 +14,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   final int delayedAmount = 100;
-  final AuthService _auth = AuthService();
+  // final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   // text field state

@@ -7,7 +7,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //AuthService service = AuthService();
+  AuthService service = AuthService();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

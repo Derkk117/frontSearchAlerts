@@ -1,17 +1,19 @@
-import 'package:Search_Alerts/Screens/Home/Home.dart';
+import '../../MyColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../MyColor.dart';
+import 'package:Search_Alerts/globals.dart';
+import 'package:Search_Alerts/Screens/Home/Home.dart';
 
 class IndexTab extends StatefulWidget {
   @override
   _IndexTabState createState() => _IndexTabState();
 }
 
-class _IndexTabState extends State<IndexTab> {
-  //final AuthService _auth = AuthService();
+Future start() async {
+  await App.init();
+}
 
+class _IndexTabState extends State<IndexTab> {
   final titles = [
     Text("My Stickers"),
     Text("Forum"),
@@ -45,6 +47,11 @@ class _IndexTabState extends State<IndexTab> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
@@ -67,7 +74,8 @@ class _IndexTabState extends State<IndexTab> {
                 ),
                 label: Text("Log out"),
                 onPressed: () async {
-                  //await _auth.signOut();
+                  App.localStorage.clear();
+                  App.localStorage.commit();
                 },
               )
             ],

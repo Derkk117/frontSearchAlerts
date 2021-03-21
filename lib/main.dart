@@ -1,17 +1,21 @@
-import 'package:Search_Alerts/Models/User.dart';
-import 'package:Search_Alerts/Services/Auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Search_Alerts/Welcome.dart';
+import 'package:Search_Alerts/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'MyColor.dart';
-// Import the firebase_core plugin
 import 'dart:async';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([]);
+  start();
   runApp(new MyApp());
+}
+
+Future start() async {
+  await App.init();
 }
 
 class MyApp extends StatefulWidget {
@@ -20,8 +24,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Map<String, String> newUser = {};
-
+  SharedPreferences sharedPreferences;
   @override
   void initState() {
     // TODO: implement initState
@@ -30,8 +33,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<UserSA>.value(
-      //value: AuthService().user,
+    return Provider<String>.value(
+      value: (App.localStorage != null)
+          ? App.localStorage.getString('token')
+          : null,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Search Alerts',
