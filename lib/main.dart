@@ -1,51 +1,57 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:Search_Alerts/Welcome.dart';
-import 'package:Search_Alerts/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:Search_Alerts/pages/dashboard.dart';
+import 'package:Search_Alerts/pages/login.dart';
+import 'package:Search_Alerts/pages/register.dart';
+import 'package:Search_Alerts/pages/welcome.dart';
+import 'package:Search_Alerts/providers/auth.dart';
+import 'package:Search_Alerts/providers/user_provider.dart';
+import 'package:Search_Alerts/util/shared_preference.dart';
 import 'package:provider/provider.dart';
-import 'MyColor.dart';
-import 'dart:async';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([]);
-  start();
-  runApp(new MyApp());
+import 'domain/user.dart';
+
+void main() {
+  runApp(MyApp());
 }
 
-Future start() async {
-  await App.init();
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  SharedPreferences sharedPreferences;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider<String>.value(
-      value: (App.localStorage != null)
-          ? App.localStorage.getString('token')
-          : null,
+    Future<User> getUserData() => UserPreferences().getUser();
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Search Alerts',
-        theme: ThemeData(
-          primarySwatch: createMaterialColor(Color(0xFF1F1F3A)),
-          scaffoldBackgroundColor: Colors.white,
-        ),
-        home: Welcome(),
-      ),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: FutureBuilder(
+              future: getUserData(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return CircularProgressIndicator();
+                  default:
+                    if (snapshot.hasError)
+                      return Text('Error: ${snapshot.error}');
+                    else if (snapshot.data.token == null)
+                      return Login();
+                    else
+                      UserPreferences().removeUser();
+                    return Welcome(user: snapshot.data);
+                }
+              }),
+          routes: {
+            '/dashboard': (context) => DashBoard(),
+            '/login': (context) => Login(),
+            '/register': (context) => Register(),
+          }),
     );
   }
 }
