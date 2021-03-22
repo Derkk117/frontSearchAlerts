@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:Search_Alerts/domain/user.dart';
+import 'package:Search_Alerts/util/shared_preference.dart';
+import 'package:Search_Alerts/providers/user_provider.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<UserProvider>(context).user;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("DASHBOARD PAGE"),
@@ -27,8 +27,9 @@ class _DashBoardState extends State<DashBoard> {
           SizedBox(height: 100),
           RaisedButton(
             onPressed: () {
-              // Provider.of<UserProvider>(context, listen: false).removeUser();
-              // Navigator.pushReplacementNamed(context, '/register');
+              UserPreferences().removeUser();
+              Navigator.pushReplacementNamed(context, '/login');
+              Provider.of<UserProvider>(context, listen: false).removeUser();
             },
             child: Text("Logout"),
             color: Colors.lightBlueAccent,

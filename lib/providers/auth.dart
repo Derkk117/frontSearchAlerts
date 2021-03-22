@@ -40,7 +40,7 @@ class AuthProvider with ChangeNotifier {
       headers: {'Content-Type': 'application/json'},
     );
 
-    Response res = await get(AppUrl.getUser, headers: {
+    Response res = await get(AppUrl.getUser + '/' + email, headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + json.decode(response.body)['access_token']
     });
@@ -66,37 +66,28 @@ class AuthProvider with ChangeNotifier {
     return result;
   }
 
-  Future<Map<String, dynamic>> register(
-      String email, String password, String passwordConfirmation) async {
+  Future<Map<String, dynamic>> register(String name, String email,
+      String password, String passwordConfirmation) async {
     final Map<String, dynamic> registrationData = {
-      'user': {
-        'email': email,
-        'password': password,
-        'password_confirmation': passwordConfirmation
-      }
+      'name': name,
+      'email': email,
+      'password': password
     };
-    return await post(AppUrl.register,
-            body: json.encode(registrationData),
-            headers: {'Content-Type': 'application/json'})
-        .then(onValue)
-        .catchError(onError);
+    if (password == passwordConfirmation) {
+      return await post(AppUrl.register,
+              body: json.encode(registrationData),
+              headers: {'Content-Type': 'application/json'})
+          .then(onValue)
+          .catchError(onError);
+    } else
+      return {'Error': 'The password and password confirmation are not equal'};
   }
 
   static Future<FutureOr> onValue(Response response) async {
     var result;
     final Map<String, dynamic> responseData = json.decode(response.body);
-
     if (response.statusCode == 200) {
-      var userData = responseData['data'];
-
-      User authUser = User.fromJson(userData);
-
-      UserPreferences().saveUser(authUser);
-      result = {
-        'status': true,
-        'message': 'Successfully registered',
-        'data': authUser
-      };
+      result = {'status': true, 'message': 'Successfully registered'};
     } else {
 //      if (response.statusCode == 401) Get.toNamed("/login");
       result = {

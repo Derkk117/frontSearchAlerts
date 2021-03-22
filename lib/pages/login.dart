@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:Search_Alerts/domain/user.dart';
@@ -76,6 +78,7 @@ class _LoginState extends State<Login> {
         successfulMessage.then((response) {
           if (response['status']) {
             User user = response['user'];
+            inspect(user);
             Provider.of<UserProvider>(context, listen: false).setUser(user);
             Navigator.pushReplacementNamed(context, '/dashboard');
           } else {
@@ -97,8 +100,7 @@ class _LoginState extends State<Login> {
           padding: EdgeInsets.all(40.0),
           child: Form(
             key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
                 SizedBox(height: 15.0),
                 label("Email"),

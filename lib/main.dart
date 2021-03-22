@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/pages/dashboard.dart';
+import 'package:provider/provider.dart';
 import 'package:Search_Alerts/pages/login.dart';
-import 'package:Search_Alerts/pages/register.dart';
 import 'package:Search_Alerts/pages/welcome.dart';
 import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
+import 'package:Search_Alerts/pages/register.dart';
+import 'package:Search_Alerts/pages/dashboard.dart';
 import 'package:Search_Alerts/util/shared_preference.dart';
-import 'package:provider/provider.dart';
+import 'package:Search_Alerts/providers/user_provider.dart';
 
 import 'domain/user.dart';
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Search Alerts',
           theme: ThemeData(
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,

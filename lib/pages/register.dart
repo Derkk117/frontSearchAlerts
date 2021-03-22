@@ -1,8 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/domain/user.dart';
 import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
 import 'package:Search_Alerts/util/validators.dart';
 import 'package:Search_Alerts/util/widgets.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +13,19 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final formKey = new GlobalKey<FormState>();
 
-  String _username, _password, _confirmPassword;
+  String _name, _username, _password, _confirmPassword;
 
   @override
   Widget build(BuildContext context) {
     AuthProvider auth = Provider.of<AuthProvider>(context);
+
+    final nameField = TextFormField(
+      autofocus: false,
+      validator: (value) =>
+          value.isEmpty ? "Please enter your full name" : null,
+      onSaved: (value) => _name = value,
+      decoration: buildInputDecoration("Confirm password", Icons.person),
+    );
 
     final usernameField = TextFormField(
       autofocus: false,
@@ -56,11 +62,16 @@ class _RegisterState extends State<Register> {
       final form = formKey.currentState;
       if (form.validate()) {
         form.save();
-        auth.register(_username, _password, _confirmPassword).then((response) {
+        auth
+            .register(_name, _username, _password, _confirmPassword)
+            .then((response) {
           if (response['status']) {
-            User user = response['data'];
-            Provider.of<UserProvider>(context, listen: false).setUser(user);
-            Navigator.pushReplacementNamed(context, '/dashboard');
+            Flushbar(
+              title: "Registration successfully",
+              message: response.toString(),
+              duration: Duration(seconds: 10),
+            ).show(context);
+            Navigator.pushReplacementNamed(context, '/login');
           } else {
             Flushbar(
               title: "Registration Failed",
@@ -84,9 +95,12 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(40.0),
           child: Form(
             key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
+                SizedBox(height: 15.0),
+                label("Full Name"),
+                SizedBox(height: 5.0),
+                nameField,
                 SizedBox(height: 15.0),
                 label("Email"),
                 SizedBox(height: 5.0),
@@ -102,7 +116,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(height: 20.0),
                 auth.loggedInStatus == Status.Authenticating
                     ? loading
-                    : longButtons("Login", doRegister),
+                    : longButtons("Sign Up", doRegister),
               ],
             ),
           ),

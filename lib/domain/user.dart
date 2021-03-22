@@ -7,8 +7,6 @@ class User {
 
   User({this.userId, this.name, this.email, this.image, this.token});
   factory User.fromJson(Map<String, dynamic> responseData) {
-    print(responseData);
-
     return User(
         userId: int.parse(responseData['data']['id']),
         name: responseData['data']['name'],
