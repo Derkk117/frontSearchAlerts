@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:flutter/material.dart';
 import 'package:Search_Alerts/domain/user.dart';
 import 'package:Search_Alerts/util/app_url.dart';
 import 'package:Search_Alerts/util/shared_preference.dart';
@@ -23,6 +23,8 @@ class AuthProvider with ChangeNotifier {
   Status get loggedInStatus => _loggedInStatus;
   Status get registeredInStatus => _registeredInStatus;
 
+  /* Login Function */
+
   Future<Map<String, dynamic>> login(String email, String password) async {
     var result;
 
@@ -39,25 +41,30 @@ class AuthProvider with ChangeNotifier {
       body: json.encode(loginData),
       headers: {'Content-Type': 'application/json'},
     );
+    if (response.statusCode == 200) {
+      Response res = await get(AppUrl.getUser + '/' + email, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + json.decode(response.body)['access_token']
+      });
 
-    Response res = await get(AppUrl.getUser + '/' + email, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + json.decode(response.body)['access_token']
-    });
+      if (res.statusCode == 200) {
+        Map<String, dynamic> user = {
+          'data': jsonDecode(res.body),
+          'token': 'Bearer ' + json.decode(response.body)['access_token']
+        };
+        User authUser = User.fromJson(user);
 
-    if (res.statusCode == 200) {
-      Map<String, dynamic> user = {
-        'data': jsonDecode(res.body),
-        'token': 'Bearer ' + json.decode(response.body)['access_token']
-      };
-      User authUser = User.fromJson(user);
+        UserPreferences().saveUser(authUser);
 
-      UserPreferences().saveUser(authUser);
+        _loggedInStatus = Status.LoggedIn;
+        notifyListeners();
 
-      _loggedInStatus = Status.LoggedIn;
-      notifyListeners();
-
-      result = {'status': true, 'message': 'Successful', 'user': authUser};
+        result = {'status': true, 'message': 'Successful', 'user': authUser};
+      } else {
+        _loggedInStatus = Status.NotLoggedIn;
+        notifyListeners();
+        result = {'status': false, 'message': 'Login error, please try again!'};
+      }
     } else {
       _loggedInStatus = Status.NotLoggedIn;
       notifyListeners();

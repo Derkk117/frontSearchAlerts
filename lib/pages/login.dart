@@ -1,13 +1,11 @@
-import 'dart:developer';
-
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
-import 'package:Search_Alerts/util/validators.dart';
-import 'package:Search_Alerts/util/widgets.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:provider/provider.dart';
+import 'package:Search_Alerts/domain/user.dart';
+import 'package:Search_Alerts/util/widgets.dart';
+import 'package:Search_Alerts/providers/auth.dart';
+import 'package:Search_Alerts/util/validators.dart';
+import 'package:Search_Alerts/providers/user_provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -16,7 +14,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = new GlobalKey<FormState>();
-
   String _username, _password;
 
   @override
@@ -68,24 +65,22 @@ class _LoginState extends State<Login> {
     );
 
     var doLogin = () {
+      FocusScope.of(context).requestFocus(FocusNode());
       final form = formKey.currentState;
-
       if (form.validate()) {
         form.save();
-
         final Future<Map<String, dynamic>> successfulMessage =
             auth.login(_username, _password);
         successfulMessage.then((response) {
-          if (response['status']) {
+          if (response['message'] == "Successful") {
             User user = response['user'];
-            inspect(user);
             Provider.of<UserProvider>(context, listen: false).setUser(user);
             Navigator.pushReplacementNamed(context, '/dashboard');
           } else {
             Flushbar(
               title: "Failed Login",
-              message: response['message']['message'].toString(),
-              duration: Duration(seconds: 3),
+              message: response['message'].toString(),
+              duration: Duration(seconds: 5),
             ).show(context);
           }
         });

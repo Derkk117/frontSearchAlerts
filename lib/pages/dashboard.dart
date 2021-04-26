@@ -23,13 +23,12 @@ class _DashBoardState extends State<DashBoard> {
           SizedBox(
             height: 100,
           ),
-          Center(child: Text(user.email)),
+          Center(child: Text(user.email ?? '')),
           SizedBox(height: 100),
           RaisedButton(
             onPressed: () {
               UserPreferences().removeUser();
               Navigator.pushReplacementNamed(context, '/login');
-              Provider.of<UserProvider>(context, listen: false).removeUser();
             },
             child: Text("Logout"),
             color: Colors.lightBlueAccent,

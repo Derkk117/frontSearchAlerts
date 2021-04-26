@@ -1,6 +1,6 @@
 class AppUrl {
   static const String liveBaseURL = "";
-  static const String localBaseURL = "http://192.168.1.76:80/api";
+  static const String localBaseURL = "http://192.168.1.74:80/api";
 
   static const String baseURL = localBaseURL;
 
