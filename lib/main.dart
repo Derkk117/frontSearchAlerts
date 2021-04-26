@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Search_Alerts/pages/login.dart';
-import 'package:Search_Alerts/pages/welcome.dart';
 import 'package:Search_Alerts/providers/auth.dart';
 import 'package:Search_Alerts/pages/register.dart';
 import 'package:Search_Alerts/pages/dashboard.dart';
@@ -25,10 +24,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Search Alerts',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primarySwatch: Colors.purple,
+            scaffoldBackgroundColor: Colors.white,
           ),
           home: FutureBuilder(
               future: getUserData(),
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                       return Login();
                     else
                       UserPreferences().removeUser();
-                    return Welcome(user: snapshot.data);
+                    return DashBoard();
                 }
               }),
           routes: {

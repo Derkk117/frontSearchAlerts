@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Colors.black;
     AuthProvider auth = Provider.of<AuthProvider>(context);
 
     final usernameField = TextFormField(
@@ -91,31 +92,46 @@ class _LoginState extends State<Login> {
 
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(40.0),
-          child: Form(
-            key: formKey,
-            child: ListView(
-              children: [
-                SizedBox(height: 15.0),
-                label("Email"),
-                SizedBox(height: 5.0),
-                usernameField,
-                SizedBox(height: 20.0),
-                label("Password"),
-                SizedBox(height: 5.0),
-                passwordField,
-                SizedBox(height: 20.0),
-                auth.loggedInStatus == Status.Authenticating
-                    ? loading
-                    : longButtons("Login", doLogin),
-                SizedBox(height: 5.0),
-                forgotLabel
-              ],
+          body: Padding(
+        padding: EdgeInsets.all(40.0),
+        child: ListView(
+          children: [
+            Text(
+              "Welcome to Search Alerts",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 35.0, color: color),
             ),
-          ),
+            SizedBox(
+              height: 30.0,
+            ),
+            Text(
+              "Everything you are looking for in one place",
+              style: TextStyle(fontSize: 20.0, color: color),
+            ),
+            Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 15.0),
+                    label("Email"),
+                    SizedBox(height: 5.0),
+                    usernameField,
+                    SizedBox(height: 20.0),
+                    label("Password"),
+                    SizedBox(height: 5.0),
+                    passwordField,
+                    SizedBox(height: 20.0),
+                    auth.loggedInStatus == Status.Authenticating
+                        ? loading
+                        : longButtons("Login", doLogin),
+                    SizedBox(height: 5.0),
+                    forgotLabel
+                  ],
+                )),
+          ],
         ),
-      ),
+      )),
     );
   }
 }
