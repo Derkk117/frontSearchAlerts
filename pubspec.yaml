@@ -19,6 +19,7 @@ dependencies:
   html:
   webview_flutter: 0.3.20+2
   flutter_inappwebview: ^4.0.0+4
+  flutter_search_bar: ^2.1.0
 
 dev_dependencies:
   flutter_test:
