@@ -4,7 +4,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 class Browser extends StatefulWidget {
   final String firstUrl; //first url part.
   final String lasttUrl; //last url part.
-  final String searchQuery; //key words that we'll search
+  final ValueNotifier<String> searchQuery; //key words that we'll search
   final String domainName; //name of the page.
   final String source; //element we'll be serching.
 
@@ -25,12 +25,15 @@ class _BrowserState extends State<Browser> {
   InAppWebView browser;
   InAppWebViewController webView;
   String text = ""; //text that we'll return.
+  String search = "";
   Future<String> _calculation;
 
   @override
   void initState() {
+    widget.searchQuery.addListener(() => setState(initText));
+    initText();
     browser = InAppWebView(
-        initialUrl: widget.firstUrl + widget.searchQuery + widget.lasttUrl,
+        initialUrl: widget.firstUrl + this.search + widget.lasttUrl,
         initialHeaders: {},
         initialOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(
@@ -52,6 +55,12 @@ class _BrowserState extends State<Browser> {
 
     _calculation = Future<String>.delayed(Duration(seconds: 15), () => text);
     super.initState();
+  }
+
+  initText() {
+    this.search = widget.searchQuery.value;
+    if (webView != null)
+      webView.loadUrl(url: widget.firstUrl + this.search + widget.lasttUrl);
   }
 
   @override

@@ -11,7 +11,8 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  String searchQuery = "";
+  ValueNotifier<String> searchQuery = ValueNotifier<String>("");
+  // String searchQuery = "";
   String myurl = "";
   TextEditingController _txController = new TextEditingController();
 
@@ -94,14 +95,16 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
+  updateString(String value) {
+    searchQuery.value = value;
+  }
+
   void addDynamic() {
-    setState(() {
-      dynamicList = [];
-      searchQuery = _txController.text;
-    });
-    print(searchQuery);
-    if (searchQuery.length > 0 && dynamicList.length == 0) {
-      searchQuery = _txController.text;
+    updateString(_txController.text);
+    if (searchQuery.value.length > 0 && dynamicList.length == 0) {
+      setState(() {
+        dynamicList = [];
+      });
       dynamicList.add(Browser(
           firstUrl:
               "https://www.google.com.mx/search?sxsrf=ALeKk03zTLWKxs8rq70CbOENqaoWWsMmSA%3A1584863771703&source=hp&ei=Gxp3XtzsKMSMtAb7xJaIDQ&q=",
@@ -125,48 +128,8 @@ class _DashBoardState extends State<DashBoard> {
           source:
               "window.document.getElementsByClassName('sb_count')[0].innerText;",
           domainName: "Bing"));
-    } else if (searchQuery.length > 0 && dynamicList.length > 0) {
-      dynamicList = [];
+    } else if (searchQuery.value.length > 0 && dynamicList.length > 0) {
+      updateString(_txController.text);
     }
   }
-
-  /*Widget _search() {
-    searchQuery = _txController.text;
-    if (searchQuery.length > 0) {
-      return Container(
-          child: Column(children: <Widget>[
-        Browser(
-            firstUrl:
-                "https://www.google.com.mx/search?sxsrf=ALeKk03zTLWKxs8rq70CbOENqaoWWsMmSA%3A1584863771703&source=hp&ei=Gxp3XtzsKMSMtAb7xJaIDQ&q=",
-            lasttUrl:
-                "&btnK=Google+Search&oq=cambiar+motor+de+busqueda+edge+&gs_l=psy-ab.3.0.0i203l2j0i22i30l8.1351.5047..6282...0.0..0.282.2572.0j14j3......0....1..gws-wiz.......35i39j0i273j0j0i67j0i20i263.I-gqQr5JB1g",
-            searchQuery: this.searchQuery,
-            source:
-                "window.document.getElementsByClassName('WE0UJf')[0].innerText;",
-            domainName: "Google"),
-        SizedBox(
-          height: 25,
-        ),
-        Browser(
-            firstUrl: "https://www.youtube.com/results?search_query=",
-            lasttUrl: "",
-            searchQuery: this.searchQuery,
-            source:
-                "window.document.getElementsById('text-container')[0].innerText;",
-            domainName: "YouTube"),
-        SizedBox(
-          height: 25,
-        ),
-        Browser(
-            firstUrl: "https://www.bing.com/search?q=",
-            lasttUrl: "",
-            searchQuery: this.searchQuery,
-            source:
-                "window.document.getElementsByClassName('sb_count')[0].innerText;",
-            domainName: "Bing"),
-      ]));
-    } else {
-      return Text("What are you looking for?");
-    }
-  }*/
 }
