@@ -1,4 +1,9 @@
+import 'package:Search_Alerts/pages/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:Search_Alerts/domain/user.dart';
+import 'package:Search_Alerts/util/shared_preference.dart';
+import 'package:Search_Alerts/providers/user_provider.dart';
 
 MaterialButton longButtons(String title, Function fun,
     {Color color: const Color(0xff063057), Color textColor: Colors.white}) {
@@ -29,4 +34,57 @@ InputDecoration buildInputDecoration(String hintText, IconData icon) {
     contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
   );
+}
+
+class SideDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    User user = Provider.of<UserProvider>(context).user;
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          DrawerHeader(
+            child: Center(
+              child: Text(
+                'Welcome back ' + user.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Something to search?'), //Dashboard page
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashBoard()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.search),
+            title: Text('Last searches'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.campaign_rounded),
+            title: Text('My Alerts'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout'),
+            onTap: () {
+              UserPreferences().removeUser();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

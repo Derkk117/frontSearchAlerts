@@ -1,3 +1,5 @@
+import 'MyColor.dart';
+import 'domain/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Search_Alerts/pages/login.dart';
@@ -6,8 +8,7 @@ import 'package:Search_Alerts/pages/register.dart';
 import 'package:Search_Alerts/pages/dashboard.dart';
 import 'package:Search_Alerts/util/shared_preference.dart';
 import 'package:Search_Alerts/providers/user_provider.dart';
-
-import 'domain/user.dart';
+import 'package:Search_Alerts/providers/alert_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,13 +22,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AlertProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Search Alerts',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
+            primarySwatch: createMaterialColor(Colors.black),
             scaffoldBackgroundColor: Colors.white,
           ),
           home: FutureBuilder(

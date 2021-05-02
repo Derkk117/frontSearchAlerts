@@ -96,7 +96,6 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       result = {'status': true, 'message': 'Successfully registered'};
     } else {
-//      if (response.statusCode == 401) Get.toNamed("/login");
       result = {
         'status': false,
         'message': 'Registration failed',
