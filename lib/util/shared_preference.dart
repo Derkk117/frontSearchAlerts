@@ -1,4 +1,4 @@
-import 'package:Search_Alerts/domain/user.dart';
+import 'package:search_alerts/domain/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 

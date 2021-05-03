@@ -2,13 +2,14 @@ import 'MyColor.dart';
 import 'domain/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Search_Alerts/pages/login.dart';
-import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/pages/register.dart';
-import 'package:Search_Alerts/pages/dashboard.dart';
-import 'package:Search_Alerts/util/shared_preference.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
-import 'package:Search_Alerts/providers/alert_provider.dart';
+import 'package:search_alerts/pages/login.dart';
+import 'package:search_alerts/pages/profile.dart';
+import 'package:search_alerts/providers/auth.dart';
+import 'package:search_alerts/pages/register.dart';
+import 'package:search_alerts/pages/dashboard.dart';
+import 'package:search_alerts/util/shared_preference.dart';
+import 'package:search_alerts/providers/user_provider.dart';
+import 'package:search_alerts/providers/alert_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,13 +47,14 @@ class MyApp extends StatelessWidget {
                       return Login();
                     else
                       UserPreferences().removeUser();
-                    return DashBoard();
+                    return Login();
                 }
               }),
           routes: {
             '/dashboard': (context) => DashBoard(),
             '/login': (context) => Login(),
             '/register': (context) => Register(),
+            '/profile': (context) => Profile(),
           }),
     );
   }

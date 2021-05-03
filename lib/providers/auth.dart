@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/util/app_url.dart';
-import 'package:Search_Alerts/util/shared_preference.dart';
+import 'package:search_alerts/domain/user.dart';
+import 'package:search_alerts/util/app_url.dart';
+import 'package:search_alerts/util/shared_preference.dart';
 
 enum Status {
   NotLoggedIn,
@@ -13,7 +13,8 @@ enum Status {
   Registered,
   Authenticating,
   Registering,
-  LoggedOut
+  LoggedOut,
+  Updating
 }
 
 class AuthProvider with ChangeNotifier {

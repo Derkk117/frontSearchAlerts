@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:provider/provider.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/util/widgets.dart';
-import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/util/validators.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
+import 'package:search_alerts/domain/user.dart';
+import 'package:search_alerts/util/widgets.dart';
+import 'package:search_alerts/providers/auth.dart';
+import 'package:search_alerts/util/validators.dart';
+import 'package:search_alerts/providers/user_provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -47,16 +47,14 @@ class _LoginState extends State<Login> {
     final forgotLabel = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        FlatButton(
-          padding: EdgeInsets.all(0.0),
+        TextButton(
           child: Text("Forgot password?",
               style: TextStyle(fontWeight: FontWeight.w300)),
           onPressed: () {
 //            Navigator.pushReplacementNamed(context, '/reset-password');
           },
         ),
-        FlatButton(
-          padding: EdgeInsets.only(left: 0.0),
+        TextButton(
           child: Text("Sign up", style: TextStyle(fontWeight: FontWeight.w300)),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/register');

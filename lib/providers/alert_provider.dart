@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:Search_Alerts/util/app_url.dart';
+import 'package:search_alerts/util/app_url.dart';
 
 class AlertProvider with ChangeNotifier {
   Future<Map<String, dynamic>> storeSearch(

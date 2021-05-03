@@ -1,8 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:Search_Alerts/providers/auth.dart';
-import 'package:Search_Alerts/util/validators.dart';
-import 'package:Search_Alerts/util/widgets.dart';
+import 'package:search_alerts/providers/auth.dart';
+import 'package:search_alerts/util/validators.dart';
+import 'package:search_alerts/util/widgets.dart';
 import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
@@ -62,8 +62,7 @@ class _RegisterState extends State<Register> {
     final loginLabel = Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        FlatButton(
-          padding: EdgeInsets.only(left: 0.0),
+        TextButton(
           child: Text("Login", style: TextStyle(fontWeight: FontWeight.w300)),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/login');

@@ -1,4 +1,4 @@
-name: Search_Alerts
+name: search_alerts
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -8,6 +8,10 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+analyzer:
+  enable-experiment:
+    - non-nullable
+    
 dependencies:
   flutter:
     sdk: flutter
@@ -20,6 +24,7 @@ dependencies:
   webview_flutter: 0.3.20+2
   flutter_inappwebview: ^4.0.0+4
   flutter_search_bar: ^2.1.0
+  image_picker: ^0.6.7+20
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +32,6 @@ dev_dependencies:
 
 flutter:
   assets:
-    - Assets/Images/
+    - assets/images/
 
   uses-material-design: true

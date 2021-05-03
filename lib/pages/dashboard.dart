@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/util/widgets.dart';
-import 'package:Search_Alerts/util/Browser.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
-import 'package:Search_Alerts/providers/alert_provider.dart';
+import 'package:search_alerts/domain/user.dart';
+import 'package:search_alerts/util/widgets.dart';
+import 'package:search_alerts/util/Browser.dart';
+import 'package:search_alerts/providers/user_provider.dart';
+import 'package:search_alerts/providers/alert_provider.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -31,49 +31,56 @@ class _DashBoardState extends State<DashBoard> {
     AlertProvider alerts = Provider.of<AlertProvider>(context);
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      drawer: SideDrawer(),
-      appBar: AppBar(
-        title: Container(
-          child: TextField(
-            controller: _txController,
-            autofocus: false,
-            style: TextStyle(fontSize: 20.0, color: Colors.white),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.transparent,
-              hintText: 'Something to search?',
-              hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
+        resizeToAvoidBottomInset: false,
+        drawer: SideDrawer(),
+        appBar: AppBar(
+          title: Container(
+            child: TextField(
+              controller: _txController,
+              autofocus: false,
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.transparent,
+                hintText: 'Something to search?',
+                hintStyle: TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
             ),
+            height: 40,
           ),
-          height: 40,
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    addDynamic();
+                    alerts.storeSearch(
+                        _txController.text, user.token, user.email);
+                  },
+                  child: Icon(
+                    Icons.search,
+                    size: 26.0,
+                  ),
+                ))
+          ],
         ),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  addDynamic();
-                  alerts.storeSearch(
-                      _txController.text, user.token, user.email);
-                },
-                child: Icon(
-                  Icons.search,
-                  size: 26.0,
-                ),
-              ))
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: dynamicList.length,
-        itemBuilder: (_, index) => dynamicList[index],
-      ),
-    );
+        body: getContent());
   }
 
   updateString(String value) {
     searchQuery.value = value;
+  }
+
+  Widget getContent() {
+    if (dynamicList.length == 0) {
+      return Center(child: Text("hello world"));
+    } else {
+      return ListView.builder(
+        itemCount: dynamicList.length,
+        itemBuilder: (_, index) => dynamicList[index],
+      );
+    }
   }
 
   void addDynamic() {

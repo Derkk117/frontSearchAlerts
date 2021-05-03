@@ -9,6 +9,8 @@ class AppUrl {
   static const String login = baseURL + "/login";
   static const String getUser = baseURL + "/loggedUser";
   static const String register = baseURL + "/sign-up";
+  static const String updateUser = baseURL + "/user/update/";
+  static const String userImage = baseURL + "/userImage/";
 
   //searches routes
   static const String addNewSearch = baseURL + "/search";

@@ -1,9 +1,9 @@
-import 'package:Search_Alerts/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Search_Alerts/domain/user.dart';
-import 'package:Search_Alerts/util/shared_preference.dart';
-import 'package:Search_Alerts/providers/user_provider.dart';
+import 'package:search_alerts/domain/user.dart';
+import 'package:search_alerts/util/app_url.dart';
+import 'package:search_alerts/util/shared_preference.dart';
+import 'package:search_alerts/providers/user_provider.dart';
 
 MaterialButton longButtons(String title, Function fun,
     {Color color: const Color(0xff063057), Color textColor: Colors.white}) {
@@ -43,46 +43,81 @@ class SideDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: <Widget>[
-          DrawerHeader(
-            child: Center(
-              child: Text(
-                'Welcome back ' + user.name,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 25),
+          Container(
+            height: 220,
+            child: DrawerHeader(
+              child: Column(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: (user.image != null)
+                          ? Image.network(
+                              AppUrl.userImage + user.image,
+                              height: 100,
+                            )
+                          : Image.asset(
+                              "assets/images/user.png",
+                              height: 100,
+                            )),
+                  Center(
+                    child: Text(
+                      user.name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(40)),
               ),
             ),
-            decoration: BoxDecoration(
-              color: Colors.black,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('Something to search?'), //Dashboard page
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/dashboard');
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.search),
+                  title: Text('Last searches'),
+                  onTap: () => {Navigator.of(context).pop()},
+                ),
+                ListTile(
+                  leading: Icon(Icons.campaign_rounded),
+                  title: Text('My Alerts'),
+                  onTap: () => {Navigator.of(context).pop()},
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Profile'),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/profile');
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Configuration'),
+                  onTap: () => {Navigator.of(context).pop()},
+                ),
+                ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text('Logout'),
+                  onTap: () {
+                    UserPreferences().removeUser();
+                    Navigator.pushReplacementNamed(context, '/login');
+                  },
+                ),
+              ],
             ),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Something to search?'), //Dashboard page
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DashBoard()),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.search),
-            title: Text('Last searches'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.campaign_rounded),
-            title: Text('My Alerts'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () {
-              UserPreferences().removeUser();
-              Navigator.pushReplacementNamed(context, '/login');
-            },
-          ),
+          )
         ],
       ),
     );
