@@ -10,6 +10,7 @@ import 'package:search_alerts/pages/dashboard.dart';
 import 'package:search_alerts/util/shared_preference.dart';
 import 'package:search_alerts/providers/user_provider.dart';
 import 'package:search_alerts/providers/alert_provider.dart';
+import 'package:search_alerts/providers/search_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => AlertProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

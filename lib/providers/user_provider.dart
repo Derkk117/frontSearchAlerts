@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -58,6 +57,7 @@ class UserProvider with ChangeNotifier {
 
         userStatus = UserStatus.Updated;
 
+        notifyListeners();
         result = {'status': true, 'message': 'Successful', 'user': authUser};
       } else {
         userStatus = UserStatus.Updated;
