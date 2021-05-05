@@ -7,6 +7,7 @@ import 'package:search_alerts/pages/profile.dart';
 import 'package:search_alerts/providers/auth.dart';
 import 'package:search_alerts/pages/register.dart';
 import 'package:search_alerts/pages/dashboard.dart';
+import 'package:search_alerts/pages/my_searches.dart';
 import 'package:search_alerts/util/shared_preference.dart';
 import 'package:search_alerts/providers/user_provider.dart';
 import 'package:search_alerts/providers/alert_provider.dart';
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
             '/login': (context) => Login(),
             '/register': (context) => Register(),
             '/profile': (context) => Profile(),
+            '/searches': (context) => MySearches(),
+            // '/search': (context) => MySearch(search_id: 1),
           }),
     );
   }

@@ -90,46 +90,49 @@ class _LoginState extends State<Login> {
 
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.grey[300],
           body: Padding(
-        padding: EdgeInsets.all(40.0),
-        child: ListView(
-          children: [
-            Text(
-              "Welcome to Search Alerts",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 35.0, color: color),
+            padding: EdgeInsets.all(40.0),
+            child: ListView(
+              children: [
+                Text(
+                  "Welcome to Search Alerts",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.0,
+                      color: color),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Text(
+                  "Everything you are looking for in one place",
+                  style: TextStyle(fontSize: 20.0, color: color),
+                ),
+                Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15.0),
+                        label("Email"),
+                        SizedBox(height: 5.0),
+                        usernameField,
+                        SizedBox(height: 20.0),
+                        label("Password"),
+                        SizedBox(height: 5.0),
+                        passwordField,
+                        SizedBox(height: 20.0),
+                        auth.loggedInStatus == Status.Authenticating
+                            ? loading
+                            : longButtons("Login", doLogin),
+                        SizedBox(height: 5.0),
+                        forgotLabel
+                      ],
+                    )),
+              ],
             ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Text(
-              "Everything you are looking for in one place",
-              style: TextStyle(fontSize: 20.0, color: color),
-            ),
-            Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    SizedBox(height: 15.0),
-                    label("Email"),
-                    SizedBox(height: 5.0),
-                    usernameField,
-                    SizedBox(height: 20.0),
-                    label("Password"),
-                    SizedBox(height: 5.0),
-                    passwordField,
-                    SizedBox(height: 20.0),
-                    auth.loggedInStatus == Status.Authenticating
-                        ? loading
-                        : longButtons("Login", doLogin),
-                    SizedBox(height: 5.0),
-                    forgotLabel
-                  ],
-                )),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

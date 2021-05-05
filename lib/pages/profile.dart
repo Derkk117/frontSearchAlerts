@@ -108,6 +108,7 @@ class _ProfileState extends State<Profile> {
         child: Scaffold(
             resizeToAvoidBottomInset: true,
             drawer: SideDrawer(),
+            backgroundColor: Colors.grey[300],
             appBar: AppBar(title: Text("Profile")),
             body: Center(
               child: Padding(

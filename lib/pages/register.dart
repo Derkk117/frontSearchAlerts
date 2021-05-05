@@ -104,55 +104,58 @@ class _RegisterState extends State<Register> {
 
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.grey[300],
           body: Padding(
-        padding: EdgeInsets.all(40.0),
-        child: ListView(
-          children: [
-            Text(
-              "Create an account",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 30.0, color: color),
+            padding: EdgeInsets.all(40.0),
+            child: ListView(
+              children: [
+                Text(
+                  "Create an account",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      color: color),
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Text(
+                  "It's quick and easy.",
+                  style: TextStyle(fontSize: 20.0, color: color),
+                ),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 15.0),
+                      label("Full Name"),
+                      SizedBox(height: 5.0),
+                      nameField,
+                      SizedBox(height: 15.0),
+                      label("Email"),
+                      SizedBox(height: 5.0),
+                      usernameField,
+                      SizedBox(height: 15.0),
+                      label("Password"),
+                      SizedBox(height: 10.0),
+                      passwordField,
+                      SizedBox(height: 15.0),
+                      label("Confirm Password"),
+                      SizedBox(height: 10.0),
+                      confirmPassword,
+                      SizedBox(height: 20.0),
+                      auth.loggedInStatus == Status.Authenticating
+                          ? loading
+                          : longButtons("Sign Up", doRegister),
+                      SizedBox(height: 5.0),
+                      loginLabel
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Text(
-              "It's quick and easy.",
-              style: TextStyle(fontSize: 20.0, color: color),
-            ),
-            Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  SizedBox(height: 15.0),
-                  label("Full Name"),
-                  SizedBox(height: 5.0),
-                  nameField,
-                  SizedBox(height: 15.0),
-                  label("Email"),
-                  SizedBox(height: 5.0),
-                  usernameField,
-                  SizedBox(height: 15.0),
-                  label("Password"),
-                  SizedBox(height: 10.0),
-                  passwordField,
-                  SizedBox(height: 15.0),
-                  label("Confirm Password"),
-                  SizedBox(height: 10.0),
-                  confirmPassword,
-                  SizedBox(height: 20.0),
-                  auth.loggedInStatus == Status.Authenticating
-                      ? loading
-                      : longButtons("Sign Up", doRegister),
-                  SizedBox(height: 5.0),
-                  loginLabel
-                ],
-              ),
-            ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

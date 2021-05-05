@@ -1,13 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:search_alerts/domain/user.dart';
-import 'package:search_alerts/providers/search_provider.dart';
 import 'package:search_alerts/util/widgets.dart';
 import 'package:search_alerts/util/Browser.dart';
 import 'package:search_alerts/providers/user_provider.dart';
-import 'package:search_alerts/providers/alert_provider.dart';
+import 'package:search_alerts/providers/search_provider.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -31,9 +28,10 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<UserProvider>(context).user;
-    AlertProvider alerts = Provider.of<AlertProvider>(context);
+    SearchProvider searchProvider = Provider.of<SearchProvider>(context);
 
     return Scaffold(
+        backgroundColor: Colors.grey[300],
         resizeToAvoidBottomInset: false,
         drawer: SideDrawer(),
         appBar: AppBar(
@@ -58,7 +56,7 @@ class _DashBoardState extends State<DashBoard> {
                   onTap: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                     addDynamic();
-                    alerts.storeSearch(
+                    searchProvider.storeSearch(
                         _txController.text, user.token, user.email);
                   },
                   child: Icon(

@@ -14,6 +14,7 @@ class AppUrl {
 
   //searches routes
   static const String addNewSearch = baseURL + "/search";
-  static const String getSearches = baseURL + "/searches";
+  static const String getSearches = baseURL + "/searches/";
   static const String getRecentSearches = baseURL + "/recent/searches/";
+  static const String getSearch = baseURL + "/search/";
 }

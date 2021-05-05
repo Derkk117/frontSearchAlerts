@@ -87,8 +87,10 @@ class SideDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.search),
-                  title: Text('Last searches'),
-                  onTap: () => {Navigator.of(context).pop()},
+                  title: Text('My Searches'),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/searches');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.campaign_rounded),
