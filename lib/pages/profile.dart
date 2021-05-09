@@ -61,6 +61,10 @@ class _ProfileState extends State<Profile> {
       if (form.validate()) {
         form.save();
         if (_imageFile != null) {
+          setState(() {
+            user.email = _email;
+            user.name = _name;
+          });
           update.update(_email, _name, image: _imageFile.path).then((response) {
             if (response['status']) {
               Flushbar(
@@ -78,6 +82,10 @@ class _ProfileState extends State<Profile> {
             }
           });
         } else {
+          setState(() {
+            user.email = _email;
+            user.name = _name;
+          });
           update.update(_email, _name).then((response) {
             if (response['status']) {
               Flushbar(

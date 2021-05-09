@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:provider/provider.dart';
@@ -8,18 +10,18 @@ import 'package:search_alerts/providers/alert_provider.dart';
 import 'package:search_alerts/providers/user_provider.dart';
 import 'package:search_alerts/providers/search_instance_provider.dart';
 
-class MySearch extends StatefulWidget {
+class MyAlert extends StatefulWidget {
   final int searchId;
   final String searchName;
 
-  MySearch({Key key, @required this.searchId, @required this.searchName})
+  MyAlert({Key key, @required this.searchId, @required this.searchName})
       : super(key: key);
 
   @override
-  _MySearchState createState() => _MySearchState();
+  _MyAlertState createState() => _MyAlertState();
 }
 
-class _MySearchState extends State<MySearch> {
+class _MyAlertState extends State<MyAlert> {
   bool exist = false;
   bool activate = false;
   int hours = 0;
@@ -84,8 +86,6 @@ class _MySearchState extends State<MySearch> {
   @override
   Widget build(BuildContext context) {
     AlertProvider alertP = Provider.of<AlertProvider>(context);
-    // SearchInstanceProvider searchInstance =
-    //     Provider.of<SearchInstanceProvider>(context);
     User user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(

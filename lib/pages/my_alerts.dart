@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:search_alerts/domain/user.dart';
 import 'package:search_alerts/util/widgets.dart';
-import 'package:search_alerts/providers/search_provider.dart';
+import 'package:search_alerts/pages/my_alert.dart';
 import 'package:search_alerts/providers/user_provider.dart';
+import 'package:search_alerts/providers/search_provider.dart';
 
-class MySearches extends StatefulWidget {
+class MyAlerts extends StatefulWidget {
   @override
-  _MySearchesState createState() => _MySearchesState();
+  _MyAlertsState createState() => _MyAlertsState();
 }
 
-class _MySearchesState extends State<MySearches> {
+class _MyAlertsState extends State<MyAlerts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.grey[300],
         drawer: SideDrawer(),
-        appBar: AppBar(title: Text("My Searches")),
+        appBar: AppBar(title: Text("My Alerts")),
         body: getContent(context));
   }
 
@@ -50,7 +51,11 @@ class _MySearchesState extends State<MySearches> {
                       return GestureDetector(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Color(0xff063057),
+                              color: (search['alert'] == null)
+                                  ? Color(0xff063057)
+                                  : ((search['alert']['activate'] == 1)
+                                      ? Colors.green
+                                      : Colors.redAccent),
                               border: Border(
                                   bottom: BorderSide(color: Colors.white))),
                           height: 60,
@@ -68,14 +73,14 @@ class _MySearchesState extends State<MySearches> {
                           ),
                         ),
                         onTap: () {
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => MySearch(
-                          //             searchId: search['sku'],
-                          //             searchName: search['concept'],
-                          //           )),
-                          // );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyAlert(
+                                      searchId: search['sku'],
+                                      searchName: search['concept'],
+                                    )),
+                          );
                         },
                       );
                     }).toList(),

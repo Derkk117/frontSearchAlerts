@@ -95,7 +95,9 @@ class SideDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.campaign_rounded),
                   title: Text('My Alerts'),
-                  onTap: () => {Navigator.of(context).pop()},
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/alerts');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.person),
