@@ -81,11 +81,6 @@ class _MySearchesState extends State<MySearches> {
                       );
                     }).toList(),
                   ),
-                  const Icon(
-                    Icons.check_circle_outline,
-                    color: Colors.green,
-                    size: 60,
-                  ),
                 ];
               } else if (snapshot.hasError) {
                 children = <Widget>[

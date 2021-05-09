@@ -1,6 +1,6 @@
 class AppUrl {
   static const String liveBaseURL = "";
-  static const String localBaseURL = "http://192.168.1.71:80/api";
+  static const String localBaseURL = "http://192.168.1.66:80/api";
 
   //main route, this route is used in each call to the backend below
   static const String baseURL = localBaseURL;
@@ -17,4 +17,14 @@ class AppUrl {
   static const String getSearches = baseURL + "/searches/";
   static const String getRecentSearches = baseURL + "/recent/searches/";
   static const String getSearch = baseURL + "/search/";
+
+  //alerts routes
+  static const String addNewAlert = baseURL + "/alert";
+  static const String getAlert = baseURL + "/alert/";
+  static const String getAlertId = baseURL + "/alertId/";
+  static const String updateAlert = baseURL + "/alert/";
+
+  //search_instance routes
+  static const String addNewSearchInstance = baseURL + "/sInstance";
+  static const String updateSearchInstance = baseURL + "/sInstance/";
 }

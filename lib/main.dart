@@ -12,6 +12,7 @@ import 'package:search_alerts/util/shared_preference.dart';
 import 'package:search_alerts/providers/user_provider.dart';
 import 'package:search_alerts/providers/alert_provider.dart';
 import 'package:search_alerts/providers/search_provider.dart';
+import 'package:search_alerts/providers/search_instance_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AlertProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider()),
+        ChangeNotifierProvider(create: (_) => SearchInstanceProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -59,7 +61,6 @@ class MyApp extends StatelessWidget {
             '/register': (context) => Register(),
             '/profile': (context) => Profile(),
             '/searches': (context) => MySearches(),
-            // '/search': (context) => MySearch(search_id: 1),
           }),
     );
   }
