@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:provider/provider.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:search_alerts/domain/user.dart';
 import 'package:search_alerts/util/widgets.dart';
-import 'package:search_alerts/providers/alert_provider.dart';
 import 'package:search_alerts/providers/user_provider.dart';
+import 'package:search_alerts/providers/alert_provider.dart';
 import 'package:search_alerts/providers/search_instance_provider.dart';
 
 class MyAlert extends StatefulWidget {

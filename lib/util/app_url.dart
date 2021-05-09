@@ -17,6 +17,8 @@ class AppUrl {
   static const String getSearches = baseURL + "/searches/";
   static const String getRecentSearches = baseURL + "/recent/searches/";
   static const String getSearch = baseURL + "/search/";
+  static const String updateSearch = baseURL + "/search/";
+  static const String deleteSearch = baseURL + "/search/";
 
   //alerts routes
   static const String addNewAlert = baseURL + "/alert";

@@ -12,7 +12,7 @@ class UserPreferences {
     prefs.setString("image", user.image);
     prefs.setString("token", user.token);
 
-    return prefs.commit();
+    return true;
   }
 
   Future<User> getUser() async {

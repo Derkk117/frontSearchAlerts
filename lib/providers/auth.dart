@@ -76,6 +76,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> register(String name, String email,
       String password, String passwordConfirmation) async {
+    _loggedInStatus = Status.Registering;
     final Map<String, dynamic> registrationData = {
       'name': name,
       'email': email,

@@ -123,7 +123,7 @@ class _ProfileState extends State<Profile> {
                 padding: EdgeInsets.all(40.0),
                 child: ListView(
                   children: [
-                    (user.image != null && _imageFile == null)
+                    (user.image != null && _imageFile.path != null)
                         ? Container(
                             height: 150,
                             child: ConstrainedBox(
@@ -144,7 +144,7 @@ class _ProfileState extends State<Profile> {
                                     onPressed: () {
                                       _pickImage(ImageSource.gallery);
                                     },
-                                    child: (_imageFile.path != null)
+                                    child: (_imageFile != null)
                                         ? Image.file(_imageFile, height: 150)
                                         : Image.asset("assets/images/user.png",
                                             height: 150)))),

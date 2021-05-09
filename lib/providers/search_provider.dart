@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:search_alerts/util/app_url.dart';
 
+enum SearchStatus { Updating, Deleting, Updated, Deleted, Awaiting }
+
 class SearchProvider with ChangeNotifier {
+  SearchStatus _action = SearchStatus.Awaiting;
+
+  SearchStatus get actionStatus => _action;
+
   Future<Map<String, dynamic>> storeSearch(
       String searchQuery, String token, String email) async {
     final Map<String, dynamic> registrationSearchQueryData = {
@@ -48,6 +54,26 @@ class SearchProvider with ChangeNotifier {
     } else {
       return null;
     }
+  }
+
+  Future<Map<String, dynamic>> updateSearch(
+      String searchQuery, String token, int idSearch) async {
+    final Map<String, dynamic> registrationSearchQueryData = {
+      'concept': searchQuery
+    };
+    return await put(AppUrl.updateSearch + idSearch.toString(),
+        body: json.encode(registrationSearchQueryData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }).then(onValue).catchError(onError);
+  }
+
+  Future<Map<String, dynamic>> deleteSearch(String token, int idSearch) async {
+    return await delete(AppUrl.deleteSearch + idSearch.toString(), headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }).then(onValue).catchError(onError);
   }
 
   static Future<FutureOr> onValue(Response response) async {

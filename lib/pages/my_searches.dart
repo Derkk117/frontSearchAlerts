@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:search_alerts/domain/user.dart';
 import 'package:search_alerts/util/widgets.dart';
-import 'package:search_alerts/providers/search_provider.dart';
+import 'package:search_alerts/pages/my_search.dart';
 import 'package:search_alerts/providers/user_provider.dart';
+import 'package:search_alerts/providers/search_provider.dart';
 
 class MySearches extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _MySearchesState extends State<MySearches> {
       Padding(
         padding: EdgeInsets.only(top: 8, bottom: 15),
         child: Text(
-          "Tap to see alert config :)",
+          "Tap to see search config :)",
           textAlign: TextAlign.center,
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
@@ -68,14 +69,14 @@ class _MySearchesState extends State<MySearches> {
                           ),
                         ),
                         onTap: () {
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => MySearch(
-                          //             searchId: search['sku'],
-                          //             searchName: search['concept'],
-                          //           )),
-                          // );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MySearch(
+                                      searchId: search['sku'],
+                                      searchName: search['concept'],
+                                    )),
+                          );
                         },
                       );
                     }).toList(),

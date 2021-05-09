@@ -145,7 +145,7 @@ class _RegisterState extends State<Register> {
                       SizedBox(height: 10.0),
                       confirmPassword,
                       SizedBox(height: 20.0),
-                      auth.loggedInStatus == Status.Authenticating
+                      auth.loggedInStatus == Status.Registering
                           ? loading
                           : longButtons("Sign Up", doRegister),
                       SizedBox(height: 5.0),
