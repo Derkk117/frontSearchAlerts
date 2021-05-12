@@ -109,7 +109,7 @@ class _MySearchesState extends State<MySearches> {
                       width: 60,
                       height: 60,
                     ),
-                  )
+                  ),
                 ];
               }
               return ListView(

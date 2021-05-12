@@ -1,5 +1,5 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:provider/provider.dart';
 import 'package:search_alerts/domain/user.dart';
 import 'package:search_alerts/util/widgets.dart';
@@ -137,7 +137,7 @@ class _MySearchState extends State<MySearch> {
                           SizedBox(
                             height: 20,
                           ),
-                          DeleteButtons("Delete Search", doDelete),
+                          deleteButtons("Delete Search", doDelete),
                         ],
                       ),
                     ),

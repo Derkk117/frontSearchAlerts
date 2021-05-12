@@ -1,5 +1,6 @@
 import 'MyColor.dart';
 import 'domain/user.dart';
+import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:search_alerts/pages/login.dart';
@@ -14,14 +15,52 @@ import 'package:search_alerts/providers/user_provider.dart';
 import 'package:search_alerts/providers/alert_provider.dart';
 import 'package:search_alerts/providers/search_provider.dart';
 import 'package:search_alerts/providers/search_instance_provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
+  // await Future.delayed(Duration(seconds: 20));
+  // await cron.close();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FlutterLocalNotificationsPlugin not;
+
+  @override
+  void initState() {
+    super.initState();
+    var androidInitialize =
+        AndroidInitializationSettings("@mipmap/ic_launcher");
+    var iosIntialize = IOSInitializationSettings();
+    var initialzationSettings =
+        InitializationSettings(android: androidInitialize, iOS: iosIntialize);
+
+    not = new FlutterLocalNotificationsPlugin();
+    not.initialize(initialzationSettings);
+  }
+
+  Future _showNotification() async {
+    var androidDetails = new AndroidNotificationDetails(
+        "channelId", "Local Notification", "Description of local notifications",
+        importance: Importance.high);
+    var iosDetails = IOSNotificationDetails();
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
+    await not.show(1, "New Updates for Rammstein",
+        "Click here to see new results in google", generalNotificationDetails);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final cron = Cron()
+      ..schedule(Schedule.parse('* * * * * *'), () async {
+        _showNotification();
+      });
     Future<User> getUserData() => UserPreferences().getUser();
 
     return MultiProvider(

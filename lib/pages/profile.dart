@@ -123,7 +123,7 @@ class _ProfileState extends State<Profile> {
                 padding: EdgeInsets.all(40.0),
                 child: ListView(
                   children: [
-                    (user.image != null && _imageFile.path != null)
+                    (user.image != null && _imageFile == null)
                         ? Container(
                             height: 150,
                             child: ConstrainedBox(

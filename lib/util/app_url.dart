@@ -1,6 +1,6 @@
 class AppUrl {
   static const String liveBaseURL = "";
-  static const String localBaseURL = "http://192.168.1.66:80/api";
+  static const String localBaseURL = "http://192.168.1.76:80/api";
 
   //main route, this route is used in each call to the backend below
   static const String baseURL = localBaseURL;

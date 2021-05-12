@@ -25,7 +25,7 @@ MaterialButton longButtons(String title, Function fun,
   );
 }
 
-MaterialButton DeleteButtons(String title, Function fun,
+MaterialButton deleteButtons(String title, Function fun,
     {Color color: const Color(0xffCC0000), Color textColor: Colors.white}) {
   return MaterialButton(
     onPressed: fun,
