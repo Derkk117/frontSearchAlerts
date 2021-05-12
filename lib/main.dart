@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final cron = Cron()
-      ..schedule(Schedule.parse('* * * * * *'), () async {
+      ..schedule(Schedule.parse('*/4 * * * *'), () async {
         _showNotification();
       });
     Future<User> getUserData() => UserPreferences().getUser();
